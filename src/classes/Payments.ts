@@ -1,13 +1,13 @@
 import { Formatter } from '../interfaces/Formatter.js';
 
-export class Invoice implements Formatter {
+export class Payment implements Formatter {
   constructor(
-    readonly client: string,
+    readonly recipient: string,
     private details: string,
     public amount: number
   ) {}
 
   format() {
-    return `${this.client} owes £${this.amount} for ${this.details}`;
+    return `${this.recipient} is owed £${this.amount} for ${this.details}`;
   }
 }
