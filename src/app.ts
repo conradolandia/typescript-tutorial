@@ -4,7 +4,7 @@ import { Formatter } from './interfaces/Formatter.js';
 import { ListTemplate } from './classes/ListTemplate.js';
 
 const form = document.querySelector('.new-item-form') as HTMLFormElement;
-console.log(form.children);
+//console.log(form.children);
 
 // inputs
 const type = document.querySelector('#type') as HTMLInputElement;
@@ -29,39 +29,32 @@ form.addEventListener('submit', (e: Event) => {
   list.render(doc, type.value, 'end');
 });
 
-// Genericos: <T> (puede ser culquier cadena)
-const addUID = <O extends object>(obj: O) => {
-  let uid = Math.floor(Math.random() * 1000);
-  return { ...obj, uid };
-};
+// Enums
+enum ResourceType {
+  BOOK,
+  AUTHOR,
+  FILM,
+  DIRECTOR,
+  PERSON,
+  DINOSAUR,
+}
 
-let docOne = addUID({ name: 'andi', age: 45 });
-
-console.log(docOne.name);
-
-// genericos con interfaces
 interface Resource<T> {
   uid: number;
-  resourceName: string;
+  resourceType: ResourceType;
   data: T;
 }
 
-const docTwo: Resource<object> = {
+const docOne: Resource<object> = {
   uid: 1,
-  resourceName: 'Person',
-  data: { name: 'Shaun' },
+  resourceType: ResourceType.FILM,
+  data: { title: 'name of the wind' },
 };
 
-const docThree: Resource<string> = {
-  uid: 2,
-  resourceName: 'Person',
-  data: 'Shaun',
+const docTwo: Resource<object> = {
+  uid: 10,
+  resourceType: ResourceType.DINOSAUR,
+  data: { name: 'yoshi' },
 };
 
-const docFour: Resource<string[]> = {
-  uid: 3,
-  resourceName: 'shoppingList',
-  data: ['Carne', 'Pan', 'Leche', 'Huevos'],
-};
-
-[docTwo, docThree, docFour].forEach(doc => console.log(doc));
+[docOne, docTwo].forEach(doc => console.log(doc));

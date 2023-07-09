@@ -2,7 +2,7 @@ import { Invoice } from './classes/Invoice.js';
 import { Payment } from './classes/Payments.js';
 import { ListTemplate } from './classes/ListTemplate.js';
 const form = document.querySelector('.new-item-form');
-console.log(form.children);
+//console.log(form.children);
 // inputs
 const type = document.querySelector('#type');
 const tofrom = document.querySelector('#tofrom');
@@ -22,26 +22,24 @@ form.addEventListener('submit', (e) => {
     }
     list.render(doc, type.value, 'end');
 });
-// Genericos: <T> (puede ser culquier cadena)
-const addUID = (obj) => {
-    let uid = Math.floor(Math.random() * 1000);
-    return Object.assign(Object.assign({}, obj), { uid });
-};
-let docOne = addUID({ name: 'andi', age: 45 });
-console.log(docOne.name);
-const docTwo = {
+// Enums
+var ResourceType;
+(function (ResourceType) {
+    ResourceType[ResourceType["BOOK"] = 0] = "BOOK";
+    ResourceType[ResourceType["AUTHOR"] = 1] = "AUTHOR";
+    ResourceType[ResourceType["FILM"] = 2] = "FILM";
+    ResourceType[ResourceType["DIRECTOR"] = 3] = "DIRECTOR";
+    ResourceType[ResourceType["PERSON"] = 4] = "PERSON";
+    ResourceType[ResourceType["DINOSAUR"] = 5] = "DINOSAUR";
+})(ResourceType || (ResourceType = {}));
+const docOne = {
     uid: 1,
-    resourceName: 'Person',
-    data: { name: 'Shaun' },
+    resourceType: ResourceType.FILM,
+    data: { title: 'name of the wind' },
 };
-const docThree = {
-    uid: 2,
-    resourceName: 'Person',
-    data: 'Shaun',
+const docTwo = {
+    uid: 10,
+    resourceType: ResourceType.DINOSAUR,
+    data: { name: 'yoshi' },
 };
-const docFour = {
-    uid: 3,
-    resourceName: 'shoppingList',
-    data: ['Carne', 'Pan', 'Leche', 'Huevos'],
-};
-[docTwo, docThree, docFour].forEach(doc => console.log(doc));
+[docOne, docTwo].forEach(doc => console.log(doc));
